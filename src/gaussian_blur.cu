@@ -1,6 +1,6 @@
+#include "gaussian_blur.h"
 #include "kernels.h"
 #include "utils.h"
-#include <math.h>
 #include <iostream>
 
 namespace rgf {

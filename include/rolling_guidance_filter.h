@@ -1,5 +1,5 @@
-#pragma once
-#include <cstddef>
+#ifndef ROLLING_GUIDANCE_FILTER_H
+#define ROLLING_GUIDANCE_FILTER_H
 
 namespace rgf {
 // Rolling Guidance Filter (CUDA) interface
@@ -8,3 +8,5 @@ void rolling_guidance_filter_cuda(const unsigned char* input, unsigned char* out
                                   int height, int channels, float sigma_s,
                                   float sigma_r, int iterations);
 }  // namespace rgf
+
+#endif  // ROLLING_GUIDANCE_FILTER_H

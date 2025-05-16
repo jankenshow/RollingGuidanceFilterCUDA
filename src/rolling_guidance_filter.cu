@@ -1,7 +1,5 @@
 #include "kernels.h"
 #include "utils.h"
-#include <stdexcept>
-#include <math.h>
 #include <iostream>
 
 namespace rgf {

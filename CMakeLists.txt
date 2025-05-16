@@ -11,9 +11,9 @@ include_directories(include)
 
 add_library(rgf SHARED
     src/rolling_guidance_filter.cu
-    # src/rolling_guidance_filter.cpp
     src/gaussian_blur.cu
     src/utils.cu
+    # src/rolling_guidance_filter.cpp
 )
 set_target_properties(rgf PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(rgf

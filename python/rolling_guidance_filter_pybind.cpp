@@ -68,4 +68,8 @@ PYBIND11_MODULE(rgf_pybind, m) {
         py::arg("input"), py::arg("sigma"),
         "Apply gaussian blur (CUDA) to a 2D uint8 numpy "
         "array.");
+  m.def("gaussian_blur", &gaussian_blur_py,
+        py::arg("input"), py::arg("sigma"),
+        "Apply gaussian blur (CUDA) to a 2D or 3D float32 numpy "
+        "array.");
 }
