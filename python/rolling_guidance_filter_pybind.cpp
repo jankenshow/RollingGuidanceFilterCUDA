@@ -5,8 +5,8 @@
 
 namespace py = pybind11;
 
-py::array_t<float> rolling_guidance_filter_py(
-    py::array_t<float, py::array::c_style | py::array::forcecast> input,
+py::array_t<unsigned char> rolling_guidance_filter_py(
+    py::array_t<unsigned char, py::array::c_style | py::array::forcecast> input,
     float sigma_s, float sigma_r, int iterations) {
   py::buffer_info buf = input.request();
   int height, width, channels;
@@ -23,9 +23,9 @@ py::array_t<float> rolling_guidance_filter_py(
   }
   std::vector<ssize_t> out_shape = {height, width};
   if (channels > 1) out_shape.push_back(channels);
-  auto output = py::array_t<float>(out_shape);
-  rgf::rolling_guidance_filter_cuda(static_cast<const float*>(buf.ptr),
-                                    static_cast<float*>(output.request().ptr),
+  auto output = py::array_t<unsigned char>(out_shape);
+  rgf::rolling_guidance_filter_cuda(static_cast<const unsigned char*>(buf.ptr),
+                                    static_cast<unsigned char*>(output.request().ptr),
                                     width, height, channels, sigma_s, sigma_r,
                                     iterations);
   return output;
