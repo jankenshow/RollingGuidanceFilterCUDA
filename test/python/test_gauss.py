@@ -20,20 +20,20 @@ def test_rgf_identity():
     if rgf_pybind is None:
         return
     img = cv2.imread(os.path.join(BASE_DIR, "test/data/dog.jpg"))
-    out = rgf_pybind.rolling_guidance_filter(img, sigma_s=10.0, sigma_r=10.0, iterations=3)
-    cv2.imwrite(os.path.join(BASE_DIR, "test/out/dog_rgf.jpg"), out.astype(np.uint8))
+    out = rgf_pybind.gaussian_blur(img, sigma=10.0)
+    cv2.imwrite(os.path.join(BASE_DIR, "test/out/dog_gauss.jpg"), out.astype(np.uint8))
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imwrite(os.path.join(BASE_DIR, "test/data/dog_gray.jpg"), gray)
-    out_gray = rgf_pybind.rolling_guidance_filter(gray, sigma_s=10.0, sigma_r=10.0, iterations=3)
-    cv2.imwrite(os.path.join(BASE_DIR, "test/out/dog_gray_rgf.jpg"), out_gray.astype(np.uint8))
+    out_gray = rgf_pybind.gaussian_blur(gray, sigma=10.0)
+    cv2.imwrite(os.path.join(BASE_DIR, "test/out/dog_gray_gauss.jpg"), out_gray.astype(np.uint8))
 
     img = cv2.imread(os.path.join(BASE_DIR, "test/data/image.png"))
     start_time = time.time()
-    out = rgf_pybind.rolling_guidance_filter(img, sigma_s=3.0, sigma_r=25.0, iterations=4)
+    out = rgf_pybind.gaussian_blur(img, sigma=10.0)
     end_time = time.time()
     print(f"Time taken: {end_time - start_time} seconds")
-    cv2.imwrite(os.path.join(BASE_DIR, "test/out/image_rgf.png"), out.astype(np.uint8))
+    cv2.imwrite(os.path.join(BASE_DIR, "test/out/image_gauss.png"), out.astype(np.uint8))
 
 
 if __name__ == "__main__":

@@ -1,13 +1,8 @@
+#include "gaussian_blur.h"
 #include "kernels.h"
-#include <math.h>
+#include "utils.h"
 
-namespace gaussian_blur {
-
-
-__device__ inline int clamp(int v, int low, int high) {
-    return max(low, min(v, high));
-}
-
+namespace rgf {
 
 __global__ void gaussian_blur_kernel(const float* input, float* output, int width, int height, float sigma) {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
@@ -88,4 +83,4 @@ void gaussian_blur_cuda(const float* input, float* output, int width, int height
     cudaFree(d_output);
 }
 
-} // namespace gaussian_blur 
+} // namespace rgf 

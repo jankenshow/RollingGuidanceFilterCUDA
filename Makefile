@@ -16,4 +16,5 @@ clean:
 	rm -rf build .cache
 
 python_test:
-	python test/python/test_rfg.py
+	python test/python/test_rgf.py
+	python test/python/test_gauss.py

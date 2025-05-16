@@ -1,14 +1,8 @@
-#include "rolling_guidance_filter.h"
+#include "gaussian_blur.h"
 #include "kernels.h"
-#include <cuda_runtime.h>
-#include <stdexcept>
-#include <math.h>
+#include "utils.h"
 
 namespace rgf {
-__device__ inline int clamp(int v, int low, int high) {
-    return max(low, min(v, high));
-}
-
 
 __global__ void rgf_bilateral_kernel(const float* input, const float* guide, float* output, int width, int height, float sigma_s, float sigma_r) {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
@@ -73,9 +67,9 @@ void rolling_guidance_filter_cuda(const float* input, float* output, int width, 
     dim3 blocks((width + threads.x - 1) / threads.x, (height + threads.y - 1) / threads.y);
 
     if (channels == 1) {
-        gaussian_blur::gaussian_blur_kernel<<<blocks, threads>>>(d_input, d_ping, width, height, sigma_s);
+        rgf::gaussian_blur_kernel<<<blocks, threads>>>(d_input, d_ping, width, height, sigma_s);
     } else {
-        gaussian_blur::gaussian_blur_kernel_multi<<<blocks, threads>>>(d_input, d_ping, width, height, channels, sigma_s);
+        rgf::gaussian_blur_kernel_multi<<<blocks, threads>>>(d_input, d_ping, width, height, channels, sigma_s);
     }
     
     for (int i = 1; i < iterations; ++i) {
