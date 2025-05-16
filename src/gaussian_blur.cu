@@ -58,9 +58,9 @@ void gaussian_blur_cuda(const unsigned char* input, unsigned char* output, int w
     cudaArray *d_inputArray, *d_outputArray;
     cudaChannelFormatDesc channelDesc;
     if (channels == 1) {
-        channelDesc = cudaCreateChannelDesc(8, 0, 0, 0, cudaChannelFormatKindFloat);
+        channelDesc = cudaCreateChannelDesc(8, 0, 0, 0, cudaChannelFormatKindUnsigned);
     } else if (channels == 3) {
-        channelDesc = cudaCreateChannelDesc(8, 8, 8, 8, cudaChannelFormatKindFloat);
+        channelDesc = cudaCreateChannelDesc(8, 8, 8, 8, cudaChannelFormatKindUnsigned);
         input_tmp = new unsigned char[width * height * 4];
         for (int i = 0; i < width * height; i++) {
             input_tmp[i * 4] = input[i * 3];
@@ -69,7 +69,7 @@ void gaussian_blur_cuda(const unsigned char* input, unsigned char* output, int w
             input_tmp[i * 4 + 3] = 0;
         }
     } else if (channels == 4) {
-        channelDesc = cudaCreateChannelDesc(8, 8, 8, 8, cudaChannelFormatKindFloat);
+        channelDesc = cudaCreateChannelDesc(8, 8, 8, 8, cudaChannelFormatKindUnsigned);
     } else {
         std::cout << "Invalid number of channels: %d\n" << std::endl;
         return;

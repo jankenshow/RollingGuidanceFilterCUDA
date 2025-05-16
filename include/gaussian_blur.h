@@ -1,7 +1,7 @@
 #ifndef GAUSSIAN_BLUR_H
 #define GAUSSIAN_BLUR_H
 
-namespace rgt {
+namespace rgf {
 
 // ガウシアンブラーの実行
 // input: 入力画像データ（float配列）
