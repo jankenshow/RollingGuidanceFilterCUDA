@@ -15,6 +15,10 @@ mkdir: clean
 clean:
 	rm -rf build .cache
 
-python_test:
+python_test: clean_test
+	mkdir -p test/out
 	python test/python/test_rgf.py
 	python test/python/test_gauss.py
+
+clean_test:
+	rm -rf test/out

@@ -33,19 +33,34 @@ __host__ __device__ float4 operator+(float4 a, float4 b)
     return make_float4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
 }
 
+__host__ __device__ float4 operator+(float4 a, float b)
+{
+    return make_float4(a.x + b, a.y + b, a.z + b, a.w + b);
+}
+
+__host__ __device__ float4 operator+(float a, float4 b)
+{
+    return make_float4(a + b.x, a + b.y, a + b.z, a + b.w);
+}
+
 __host__ __device__ float4 operator-(float4 a, float4 b)
 {
     return make_float4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
 }
 
+__host__ __device__ float4 operator-(float4 a, float b)
+{
+    return make_float4(a.x - b, a.y - b, a.z - b, a.w - b);
+}
+
+__host__ __device__ float4 operator-(float a, float4 b)
+{
+    return make_float4(a - b.x, a - b.y, a - b.z, a - b.w);
+}
+
 __host__ __device__ float4 operator*(float4 a, float4 b)
 {
     return make_float4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
-}
-
-__host__ __device__ float4 operator/(float4 a, float4 b)
-{
-    return make_float4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
 }
 
 __host__ __device__ float4 operator*(float4 a, float b)
@@ -58,6 +73,11 @@ __host__ __device__ float4 operator*(float a, float4 b)
     return make_float4(a * b.x, a * b.y, a * b.z, a * b.w);
 }
 
+__host__ __device__ float4 operator/(float4 a, float4 b)
+{
+    return make_float4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+}
+
 __host__ __device__ float4 operator/(float4 a, float b)
 {
     return make_float4(a.x / b, a.y / b, a.z / b, a.w / b);
@@ -68,7 +88,7 @@ __host__ __device__ float4 operator/(float a, float4 b)
     return make_float4(a / b.x, a / b.y, a / b.z, a / b.w);
 }
 
-__host__ __device__ float uchar_to_float(uchar1 c) {
+__host__ __device__ float uchar1_to_float(uchar1 c) {
     return static_cast<float>(c.x) / 255.0f;
 }
 
