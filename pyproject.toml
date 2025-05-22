@@ -34,6 +34,6 @@ version = {attr = "rgf.__version__"}
 dev-dependencies = ["pytest", "pytest-cov"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests/python"]
 python_files = ["test_*.py"]
 addopts = "--cov=rgf --cov-report=term-missing"
