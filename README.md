@@ -1,13 +1,14 @@
 # Rolling Guidance Filter (CUDA/C++/Python)
 
-This project provides a CUDA implementation of the Rolling Guidance Filter, with C++ and Python (pybind11) interfaces.
+This project provides a reproduction implementation of the [Rolling Guidance Filter](https://www.cse.cuhk.edu.hk/leojia/projects/rollguidance/) in CUDA, with C++ and Python (pybind11) interfaces.
+
+We are not responsible for any problems or troubles caused by the use of this program.
 
 ## Features
 
 - High-performance rolling guidance filter using CUDA
 - C++ API
 - Python API (via pybind11, numpy array interface)
-- Example/test code included
 
 ## Requirements
 
