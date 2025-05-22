@@ -34,6 +34,6 @@ version = {attr = "rgf_cuda.__version__"}
 dev-dependencies = ["pytest", "pytest-cov"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests/python"]
+testpaths = ["test/python"]
 python_files = ["test_*.py"]
 addopts = "--cov=rgf_cuda --cov-report=term-missing"
