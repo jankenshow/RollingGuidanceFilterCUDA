@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rolling_guidance_filter"
+version = "0.1.0"
+description = "CUDA-accelerated Rolling Guidance Filter implementation"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+dependencies = [
+    "numpy>=1.25.0",
+    "opencv-python>=4.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/rolling_guidance_filter"
+Repository = "https://github.com/yourusername/rolling_guidance_filter.git"
+
+[tool.setuptools]
+package-dir = {"" = "python"}
+packages = ["rolling_guidance_filter"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "rolling_guidance_filter.__version__"} 
