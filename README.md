@@ -21,7 +21,7 @@ This project provides a CUDA implementation of the Rolling Guidance Filter, with
 
 ## Build Instructions
 
-see `CMakeLists.txt` or `puproject.toml` 
+See `CMakeLists.txt` or `puproject.toml` for more details.  
 
 ### For python
 
@@ -34,3 +34,31 @@ pip install .
 ```
 make build
 ```
+
+
+## Usage
+
+### python
+
+```
+import numpy as np
+import rgf_cuda
+
+gray_img = np.random.rand(100, 100)
+color_img = np.random.rand(100, 100, 3)
+
+res_gray = rgf_cuda.rolling_guidance_filter(gray_img, sigma_s=3, sigma_r=10.0, iterations=3)
+res_color = rgf_cuda.rolling_guidance_filter(color_img, sigma_s=3, sigma_r=10.0, iterations=3)
+
+print(res_gray.shape)  # (100, 100)
+print(res_color.shape)  # (100, 100, 3)
+print(res_color.dtype)  # dtype('float32')
+```
+
+- 2D or 3D numpy array in np.uint8 or np.float32, np.float64 should work.
+- Normalization to [0,1] is not needed, but is recommended.
+
+
+### C++
+
+under construction.
