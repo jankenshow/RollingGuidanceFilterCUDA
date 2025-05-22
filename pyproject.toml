@@ -1,9 +1,5 @@
-[build-system]
-requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "rolling_guidance_filter"
+name = "rgf"
 version = "0.1.0"
 description = "CUDA-accelerated Rolling Guidance Filter implementation"
 readme = "README.md"
@@ -23,8 +19,12 @@ Repository = "https://github.com/yourusername/rolling_guidance_filter.git"
 
 [tool.setuptools]
 package-dir = {"" = "python"}
-packages = ["rolling_guidance_filter"]
+packages = ["rgf"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
-version = {attr = "rolling_guidance_filter.__version__"} 
+version = {attr = "rgf.__version__"} 
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"

@@ -1,5 +1,6 @@
 import os
 import platform
+import shutil
 import subprocess
 import sys
 
@@ -19,17 +20,35 @@ class CMakeBuild(build_ext):
             self.build_extension(ext)
 
     def build_extension(self, ext):
-        extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
+        # トップレベルのbuildディレクトリを使用
+        build_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "build")
+        if not os.path.exists(build_dir):
+            os.makedirs(build_dir)
+
+        extdir = os.path.join(os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name))), "rgf")
+        pybind11_dir = os.path.join(
+            sys.prefix,
+            "lib",
+            f"python{sys.version_info.major}.{sys.version_info.minor}",
+            "site-packages",
+            "pybind11",
+            "share",
+            "cmake",
+            "pybind11",
+        )
         cmake_args = [
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             "-DCMAKE_BUILD_TYPE=Release",
+            f"-Dpybind11_DIR={pybind11_dir}",
+            "-DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc",
+            "-DBUILD_PYTHON_BINDING=ON",
         ]
 
         if platform.system() == "Windows":
             cmake_args += ["-G", "Ninja"]
 
-        build_temp = os.path.join(self.build_temp, ext.name)
+        build_temp = os.path.join(build_dir, ext.name)
         if not os.path.exists(build_temp):
             os.makedirs(build_temp)
 
@@ -38,6 +57,7 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    ext_modules=[CMakeExtension("rolling_guidance_filter")],
+    package_data={"rgf": ["*.so", "*.pyd"]},
+    ext_modules=[CMakeExtension("rgf")],
     cmdclass=dict(build_ext=CMakeBuild),
 )

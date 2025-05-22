@@ -49,7 +49,7 @@ name = "opencv-python"
 version = "4.8.1.78"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "numpy" },
+    { name = "numpy", marker = "python_full_version >= '3.12'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/c0/52/9fe76a56e01078a612812b40764a7b138f528b503f7653996c6cfadfa8ec/opencv-python-4.8.1.78.tar.gz", hash = "sha256:cc7adbbcd1112877a39274106cb2752e04984bc01a031162952e97450d6117f6", size = 92094255 }
 wheels = [
@@ -62,7 +62,7 @@ wheels = [
 ]
 
 [[package]]
-name = "rolling-guidance-filter"
+name = "rgf"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
