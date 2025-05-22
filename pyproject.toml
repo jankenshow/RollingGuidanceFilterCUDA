@@ -9,13 +9,18 @@ authors = [
     {name = "Your Name", email = "your.email@example.com"}
 ]
 dependencies = [
-    "numpy>=1.25.0",
+    "numpy>=1.25.0, <2.0.0",
     "opencv-python>=4.5.0",
+    "pybind11>=2.10.0",
 ]
 
 [project.urls]
 Homepage = "https://github.com/yourusername/rolling_guidance_filter"
 Repository = "https://github.com/yourusername/rolling_guidance_filter.git"
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 package-dir = {"" = "python"}
@@ -25,6 +30,10 @@ include-package-data = true
 [tool.setuptools.dynamic]
 version = {attr = "rgf.__version__"} 
 
-[build-system]
-requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
-build-backend = "setuptools.build_meta"
+[tool.uv]
+dev-dependencies = ["pytest", "pytest-cov"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=rgf --cov-report=term-missing"
