@@ -16,8 +16,21 @@ This project provides a CUDA implementation of the Rolling Guidance Filter, with
 - CUDA Toolkit (>= 12.1 is recommended)
 - CMake
 - Python 3.x (for Python interface)
-- pybind11 (for Python bindings)
+- pybind11 (for Python interface)
+- numpy (for python interface)
 
 ## Build Instructions
 
-See the comments in CMakeLists.txt for build instructions.
+see `CMakeLists.txt` or `puproject.toml` 
+
+### For python
+
+```
+pip install .
+```
+
+### C++ library
+
+```
+make build
+```

@@ -25,7 +25,7 @@ class CMakeBuild(build_ext):
         if not os.path.exists(build_dir):
             os.makedirs(build_dir)
 
-        extdir = os.path.join(os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name))), "rgf")
+        extdir = os.path.join(os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name))), "rgf_cuda")
         pybind11_dir = os.path.join(
             sys.prefix,
             "lib",
@@ -36,12 +36,17 @@ class CMakeBuild(build_ext):
             "cmake",
             "pybind11",
         )
+
+        cuda_path = os.environ.get("CUDA_PATH", "/usr/local/cuda")
+        if cuda_path is None:
+            raise ValueError("CUDA was not found")
+
         cmake_args = [
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             "-DCMAKE_BUILD_TYPE=Release",
             f"-Dpybind11_DIR={pybind11_dir}",
-            "-DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc",
+            f"-DCUDA_PATH={cuda_path}",
             "-DBUILD_PYTHON_BINDING=ON",
         ]
 
@@ -57,7 +62,7 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    package_data={"rgf": ["*.so", "*.pyd"]},
-    ext_modules=[CMakeExtension("rgf")],
+    package_data={"rgf_cuda": ["*.so", "*.pyd"]},
+    ext_modules=[CMakeExtension("rgf_cuda")],
     cmdclass=dict(build_ext=CMakeBuild),
 )
