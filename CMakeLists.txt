@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.18)
 project(rolling_guidance_filter LANGUAGES CXX CUDA)
 
 # CUDA settings
-find_package(CUDA REQUIRED)
+enable_language(CUDA)
+find_package(CUDAToolkit REQUIRED)
 
 # pybind11 (for Python bindings)
 find_package(pybind11 REQUIRED)
@@ -15,16 +16,20 @@ add_library(rgf SHARED
     src/utils.cu
     # src/rolling_guidance_filter.cpp
 )
-set_target_properties(rgf PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(rgf PROPERTIES 
+    POSITION_INDEPENDENT_CODE ON
+    CUDA_SEPARABLE_COMPILATION ON
+)
 target_include_directories(rgf
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-set_target_properties(rgf PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 # Python binding
-pybind11_add_module(rgf_pybind python/rolling_guidance_filter_pybind.cpp)
-target_link_libraries(rgf_pybind PRIVATE rgf)
+if(BUILD_PYTHON_BINDING)
+    pybind11_add_module(rgf_pybind python/rolling_guidance_filter_pybind.cpp)
+    target_link_libraries(rgf_pybind PRIVATE rgf)
+endif()
 
 # Build instructions (example):
 # mkdir build && cd build

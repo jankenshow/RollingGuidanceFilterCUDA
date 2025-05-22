@@ -11,7 +11,7 @@ __global__ void rgf_bilateral_kernel(const float* input, const float* guide, flo
     int idx = y * width + x;
     float center = guide[idx];
     float norm = 0.0f, sum = 0.0f;
-    int radius = int(ceilf(2.0f * sigma_s));
+    int radius = int(ceilf(1.5f * sigma_s));
     for (int dy = -radius; dy <= radius; ++dy) {
         for (int dx = -radius; dx <= radius; ++dx) {
             int xx = clamp(x + dx, 0, width - 1);
@@ -32,7 +32,7 @@ __global__ void rgf_bilateral_kernel_multi(const float* input, const float* guid
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
     if (x >= width || y >= height) return;
-    int radius = int(ceilf(2.0f * sigma_s));
+    int radius = int(ceilf(1.5f * sigma_s));
     for (int c = 0; c < channels; ++c) {
         int idx = (y * width + x) * channels + c;
         float center = guide[idx];

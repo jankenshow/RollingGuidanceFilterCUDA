@@ -6,7 +6,7 @@
 
 namespace py = pybind11;
 
-py::array_t<float> rolling_guidance_filter_py(
+py::array_t<float> rolling_guidance_filter(
     py::array_t<float, py::array::c_style | py::array::forcecast> input,
     float sigma_s, float sigma_r, int iterations) {
   py::buffer_info buf = input.request();
@@ -32,7 +32,7 @@ py::array_t<float> rolling_guidance_filter_py(
   return output;
 }
 
-py::array_t<float> gaussian_blur_py(
+py::array_t<float> gaussian_blur(
     py::array_t<float, py::array::c_style | py::array::forcecast> input,
     float sigma) {
   py::buffer_info buf = input.request();
@@ -59,12 +59,12 @@ py::array_t<float> gaussian_blur_py(
 
 PYBIND11_MODULE(rgf_pybind, m) {
   m.doc() = "CUDA Rolling Guidance Filter";
-  m.def("rolling_guidance_filter", &rolling_guidance_filter_py,
+  m.def("rolling_guidance_filter", &rolling_guidance_filter,
         py::arg("input"), py::arg("sigma_s"), py::arg("sigma_r"),
         py::arg("iterations"),
         "Apply rolling guidance filter (CUDA) to a 2D or 3D float32 numpy "
         "array.");
-  m.def("gaussian_blur", &gaussian_blur_py,
+  m.def("gaussian_blur", &gaussian_blur,
         py::arg("input"), py::arg("sigma"),
         "Apply gaussian blur (CUDA) to a 2D or 3D float32 numpy "
         "array.");

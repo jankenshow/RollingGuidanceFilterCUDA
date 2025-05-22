@@ -1,0 +1,39 @@
+[project]
+name = "rgf_cuda"
+version = "0.1.0"
+description = "CUDA-accelerated Rolling Guidance Filter implementation"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "3-clause BSD"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+dependencies = [
+    "numpy>=1.25.0, <2.0.0",
+    "opencv-python>=4.5.0",
+    "pybind11>=2.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/rolling_guidance_filter"
+Repository = "https://github.com/yourusername/rolling_guidance_filter.git"
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.18", "ninja", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "python"}
+packages = ["rgf_cuda"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "rgf_cuda.__version__"} 
+
+[tool.uv]
+dev-dependencies = ["pytest", "pytest-cov"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+python_files = ["test_*.py"]
+addopts = "--cov=rgf_cuda --cov-report=term-missing"
