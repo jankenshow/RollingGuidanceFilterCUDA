@@ -57,7 +57,6 @@ print(res_color.dtype)  # dtype('float32')
 ```
 
 - 2D or 3D numpy array in np.uint8 or np.float32, np.float64 should work.
-- Normalization to [0,1] is not needed, but is recommended.
 
 
 ### C++

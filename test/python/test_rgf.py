@@ -27,7 +27,8 @@ def test_rgf_identity():
 
     img = cv2.imread(os.path.join(BASE_DIR, "test/data/image.png"))
     start_time = time.time()
-    out = rgf_cuda.rolling_guidance_filter(img, sigma_s=3.0, sigma_r=25.0, iterations=4)
+    out = rgf_cuda.rolling_guidance_filter(img, sigma_s=4.0, sigma_r=10.0, iterations=4)
+    print(out.shape)
     end_time = time.time()
     print(f"Time taken: {end_time - start_time} seconds")
     cv2.imwrite(os.path.join(BASE_DIR, "test/out/image_rgf.png"), out.astype(np.uint8))
