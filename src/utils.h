@@ -8,6 +8,6 @@ namespace rgf {
 
 __host__ __device__ int clamp(int v, int low, int high);
 
-} // namespace rgf
+}  // namespace rgf
 
-#endif // UTILS_H
+#endif  // UTILS_H
