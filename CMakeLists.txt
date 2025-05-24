@@ -5,8 +5,9 @@ project(rolling_guidance_filter LANGUAGES CXX CUDA)
 enable_language(CUDA)
 find_package(CUDAToolkit REQUIRED)
 
-# pybind11 (for Python bindings)
-find_package(pybind11 REQUIRED)
+# CUDA optimization flags
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O3 --use_fast_math")
+set(CMAKE_CUDA_FLAGS_RELEASE "${CMAKE_CUDA_FLAGS_RELEASE} -O3 --use_fast_math")
 
 include_directories(include)
 
@@ -27,6 +28,9 @@ target_include_directories(rgf
 
 # Python binding
 if(BUILD_PYTHON_BINDING)
+    # pybind11 (for Python bindings)
+    find_package(pybind11 REQUIRED)
+
     pybind11_add_module(rgf_pybind python/rolling_guidance_filter_pybind.cpp)
     target_link_libraries(rgf_pybind PRIVATE rgf)
 endif()
