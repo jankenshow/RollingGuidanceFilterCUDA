@@ -10,8 +10,9 @@ namespace rgf {
 // height: 画像の高さ
 // channels: チャンネル数（1=グレースケール、3=RGB等）
 // sigma: ガウシアンブラーの標準偏差
-void gaussian_blur_cuda(const float* input, float* output, int width, int height, int channels, float sigma);
+void gaussian_blur_cuda(const float* input, float* output, int width,
+                        int height, int channels, float sigma);
 
-} // namespace rgf
+}  // namespace rgf
 
-#endif // GAUSSIAN_BLUR_H 
+#endif  // GAUSSIAN_BLUR_H
