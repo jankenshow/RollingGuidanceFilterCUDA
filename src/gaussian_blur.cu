@@ -4,9 +4,9 @@
 
 namespace rgf {
 
-__global__ void gaussian_blur_kernel(const float* input, float* output,
-                                     int width, int height, int channels,
-                                     float sigma) {
+__global__ void gaussian_blur_kernel(const float* __restrict__ input,
+                                     float* output, int width, int height,
+                                     int channels, float sigma) {
   int x = blockIdx.x * blockDim.x + threadIdx.x;
   int y = blockIdx.y * blockDim.y + threadIdx.y;
   if (x >= width || y >= height) return;

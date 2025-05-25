@@ -4,7 +4,8 @@
 
 namespace rgf {
 
-__global__ void rgf_bilateral_kernel(const float* input, const float* guide,
+__global__ void rgf_bilateral_kernel(const float* __restrict__ input,
+                                     const float* __restrict__ guide,
                                      float* output, int width, int height,
                                      int channels, float sigma_s,
                                      float sigma_r) {
